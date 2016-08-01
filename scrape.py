@@ -83,3 +83,5 @@ for date in dates:
     d = {"desc": descs, "time": times, "temp": temps, "perc": percs, 'topBottom': topBottom, 'selectionID': selectionIds, 'sport': sports, 'win': win}
     data2 = pd.DataFrame(d)
     data = data.append(data2)
+
+data.to_csv("historicalPicks.csv")
