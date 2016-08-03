@@ -1,7 +1,7 @@
 # StreakForTheCash
 Automatic selection of SFTC matchups with Python Data Scraping/Analysis
 
-The primary goal of this project is to create an automated program with an impeccable ability to pick the sports matchups posed daily on ESPN's Streak for the Cash competition (streak.espn.com).
+The primary goal of this project is to create an automated program with an impeccable ability to pick the sports matchups posed daily on ESPN's Streak for the Cash competition ([Streak.ESPN.com](https://www.streak.espn.com)).
 
 - - - -
 
@@ -26,9 +26,9 @@ __Objectives of the project:__
 
 1. __Identify a winning strategy:__ Develop two programs with objectives matching the two ways to way, listed above
 2. __Utilize the best information available__, including:
-  1. Other SFTC analytics sites (streakedge.com)
+  1. Other SFTC analytics sites (Ex. [Streak Edge](https://www.streakege.com))
   2. Live monitoring of ongoing picks
-  3. Betting lines/Sports analytics sites publishing predictions (ex. FiveThirtyEight)
+  3. Betting lines/Sports analytics sites publishing predictions (Ex. [538](http://fivethirtyeight.com/sports/))
   4. *Stretch*: Internal modeling/simulations
 3. __Identify patterns of favorable matchups__
 
