@@ -23,10 +23,11 @@ Rules:
 
 - - - -
 Objectives of the project:
+
 1. Identify a winning strategy: Develop multiple programs with the 2 objectives listed above
 2. Utilize the best information available, including:
   1. Other SFTC analytics sites (streakedge.com)
   2. Live monitoring of ongoing picks (to possibly forfeit)
   3. Betting lines/Sports analytics sites publishing predictions (ex. FiveThirtyEight)
   4. *Stretch*: Internal modeling/simulations
- 3. Identify patterns of favorable matchups
+3. Identify patterns of favorable matchups
