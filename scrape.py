@@ -44,7 +44,7 @@ for date in dates:
     for matchup in matchups:
         if matchup.find('div', {'class':'gamequestion'}) is not None:
             descs.append(matchup.find('div', {'class':'gamequestion'}).strong.getText())
-        else:
+        else: ### Note: There are currently only 28 of these... but the questions were in different tags as matchups of the day ("<div class="spons-bgGame">")
             descs.append("Unknown")
         temps.append(matchup.find('div', {'class':'heatindex'}).getText())
         percs.append(float(matchup.find('span', {'class': 'wpw'}).getText()[0:len(matchup.find('span', {'class': 'wpw'}).getText())-1]))
