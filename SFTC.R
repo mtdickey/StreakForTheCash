@@ -19,9 +19,9 @@ Picks <- read.csv("StreakForTheCash/historicalPicks.csv", stringsAsFactors = F)
 
 ## Data manipulation ##
 Picks$league <- substr(Picks$desc, 1, (regexpr(':', Picks$desc)-1)) # up to the colon is the league
-Picks$league[which(!is.na(regexpr('\\(', Picks$league)))] <- 
-  substr(Picks$league[which(!is.na(regexpr('\\(', Picks$league)))], 1,
-         (regexpr('\\(', Picks$league[which(!is.na(regexpr('\\(', Picks$league)))])-2)) # get rid of text before parentheses
+Picks$league[which(regexpr('\\(', Picks$league) != -1 & Picks$league != "")] <- 
+  substr(Picks$league[which(regexpr('\\(', Picks$league) != -1 & Picks$league != "")], 1,
+         (regexpr('\\(', Picks$league[which(regexpr('\\(', Picks$league) != -1 & Picks$league != "")])-2)) # get rid of text before parentheses
 Picks$winNum <- ifelse(Picks$win == "Yes", 1, 0) 
 Picks$keyword <- if("WIN" %in% Picks$desc){"WIN"} else {gsub(" ", "", str_match(Picks$desc, " [^a-z]+[^:] "))}
 Picks <- Picks[,-c(1,4)] #Extra columns

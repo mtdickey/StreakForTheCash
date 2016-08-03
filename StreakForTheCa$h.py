@@ -31,6 +31,7 @@ temps = []
 percs = []
 topBottom = []
 selectionIds = []
+period = []
 for matchup in matchups:
     descs.append(matchup.find('div', {'class':'gamequestion'}).strong.getText())
     temps.append(matchup.find('div', {'class':'heatindex'}).getText())
@@ -52,8 +53,12 @@ for matchup in matchups:
             selectionIds.append(matchup.find_all('a', {'class': 'mg-check mg-checkEmpty requireLogin'})[1]['selectionid'])
         else:
             selectionIds.append("unselectable")
-d = {"desc": descs, "time": times, "temp": temps, "perc": percs, 'topBottom': topBottom, 'selectionID': selectionIds}
+	period.append('Game') # Need to implement desc scanning
+d = {"desc": descs, "time": times, "temp": temps, "perc": percs, 'topBottom': topBottom, 'selectionID': selectionIds, 'period': period}
 data = pd.DataFrame(d)
+
+# Load in the "durations" file and determine what period of time each matchup will take
+duration = pd.read_csv("duration.csv")
 
 # Get the element id of the one we want to choose
 # right now the criteria is the soonest 90%+ pick that is not cold or none

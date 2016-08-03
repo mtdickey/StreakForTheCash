@@ -1,0 +1,53 @@
+Sport,Period,Length
+MLB,Game,180
+MLB,Inning,20
+Soccer,Game,130
+Soccer,Half,45
+NCB,Game,120
+NCB,Half,45
+NHL,Game,140
+NHL,Period,45
+NBA,Game,150
+NBA,Quarter,35
+NBA,Half,70
+Men's Tennis,Match,165
+Men's Tennis,Set,40
+Women's Tennis,Match,120
+Women's Tennis,Set,30
+NCF,Game,210
+NCF,Half,70
+NFL,Game,210
+NFL,Quarter,50
+NFL,Half,100
+Golf,Round,240
+Golf,Hole,10
+NCW,Game,120
+NCW,Half,60
+WNBA,Game,120
+WNBA,Half,60
+Hoops,Game,150
+Hoops,Half,60
+Hoops,Quarter,30
+Hockey,Game,140
+Hockey,Period,45
+MMA,Match,35
+Cricket,Match,300
+CBASE,Game,180
+Boxing,Match,45
+LAX,Game,120
+NASCAR,Race,210
+Softball,Game,150
+Cycling,Race,300
+CFL,Game,210
+Horse,Race,20
+Rugby,Game,110
+Track,Event,10
+AFL,Game,125
+Autos,Race,210
+W Vol,Match,120
+Wrestling,Match,30
+Oscars,Award,10
+Olympics,Game,100
+Hog,Shadow,10
+EXPN,Game,60
+Eating,Game,30
