@@ -29,6 +29,7 @@ Picks <- Picks[,-c(1,4)] #Extra columns
 ## Summary stats ####
 mean(Picks$winNum) # ESPN does a pretty good job of keeping it around 50% overall
 
+# What's the best sport to pick?
 dat <- Picks %>% group_by(sport) %>% summarise(winPct=mean(winNum), count = n()) %>% filter(count > 200) %>% arrange(winPct)
 dat$sport <- factor(dat$sport, levels = unique(dat$sport)) 
 ggplot(data = dat, aes(x=sport, y = winPct)) +
@@ -37,7 +38,7 @@ ggplot(data = dat, aes(x=sport, y = winPct)) +
 # all seem to hover around .500 pretty well
 
 # Look into relationship between confidence and win %
-img <- readPNG("STFC.png")
+img <- readPNG("SFTC.png")
 g <- rasterGrob(img, interpolate=TRUE)
 Picks$pctGroup <- as.numeric(cut_number(Picks$perc, 20))
 Picks$pctGroup <- rescale(Picks$pctGroup, to = c(50, 100))
