@@ -5,7 +5,7 @@ The primary goal of this project is to create an automated program with an impec
 
 - - - -
 
-About SFTC:
+__About SFTC__:
 In this free competition, users may win cash prizes up to $25,000 by either:
 
 1. Having the longest streak of correct picks out of all players for the month
@@ -16,13 +16,13 @@ There are a variety of matchups that players may choose from, spanning all commo
 * Picking the winning "side" of a prop bet, which may only last a brief portion of the game
   * (Ex. Which QB will have more yards in the first half?)
 
-Rules:
+__Rules__:
 * Players may not register multiple accounts
 * Only 1 pick may be made at a time
-* Note: A player may "forfeit" their pick if they wish to make another selection before their current matchup ends
+* __Note:__ A player may "forfeit" their pick if they wish to make another selection before their current matchup ends
 
 - - - -
-Objectives of the project:
+__Objectives of the project:__
 
 1. Identify a winning strategy: Develop multiple programs with the 2 objectives listed above
 2. Utilize the best information available, including:
