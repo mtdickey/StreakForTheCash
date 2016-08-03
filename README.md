@@ -29,4 +29,4 @@ Objectives of the project:
   2. Live monitoring of ongoing picks (to possibly forfeit)
   3. Betting lines/Sports analytics sites publishing predictions (ex. FiveThirtyEight)
   4. *Stretch*: Internal modeling/simulations
-3. Identify patterns of favorable matchups
+ 3. Identify patterns of favorable matchups
