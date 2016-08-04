@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 #from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import pandas as pd
 from dateutil.parser import parse
+import datetime
 
 ### open website and collect data to decide which pick to make ####
 response = urllib2.urlopen("http://streak.espn.go.com/")
@@ -32,6 +33,7 @@ percs = []
 topBottom = []
 selectionIds = []
 period = []
+sports = []
 for matchup in matchups:
     descs.append(matchup.find('div', {'class':'gamequestion'}).strong.getText())
     temps.append(matchup.find('div', {'class':'heatindex'}).getText())
@@ -42,6 +44,10 @@ for matchup in matchups:
         topBottom.append("Bottom")
     else:
         topBottom.append("Top")
+	if matchup.find('div', {'class':'sport-description'}) is not None:        
+		sports.append(matchup.find('div', {'class':'sport-description'}).getText())
+    else:
+		sports.append("Unknown")
     # Now that we know if it's on top or bottom, find the selection id of the link that goes with that (so we can select it later)
     if topBottom[len(topBottom)-1] == "Top":
         if matchup.find('a', {'class': 'mg-check mg-checkEmpty requireLogin'}) is not None:
@@ -54,11 +60,32 @@ for matchup in matchups:
         else:
             selectionIds.append("unselectable")
 	period.append('Game') # Need to implement desc scanning
-d = {"desc": descs, "time": times, "temp": temps, "perc": percs, 'topBottom': topBottom, 'selectionID': selectionIds, 'period': period}
+d = {"desc": descs, "time": times, "temp": temps, "perc": percs, 'topBottom': topBottom, 'selectionID': selectionIds, 'sport': sports, 'period': period}
 data = pd.DataFrame(d)
 
 # Load in the "durations" file and determine what period of time each matchup will take
 duration = pd.read_csv("duration.csv")
+data = pd.merge(data,duration, how='left', left_on = ['sport', 'period'], right_on = ['Sport','Period'])
+data.set_value(data['Length'].isnull() ,'Length', 120) # for all NaN's that didn't merge in, give it a default of 2 hours
+end_times = []
+for length in data['Length']:
+    end_times.append(data['time'] + (datetime.timedelta(minutes=length)))
+data['end_time'] = end_times
+
+# Determine matchups that overlap in time (if you pick one, you can't pick the other)
+overlapMatchupsList = []
+overlapMatchups = []
+for i in range(0,len(data['time'])-1):
+    overlapMatchups = []
+    for j in range(0,len(data['time'])-1):
+        if ( ( (data.iloc[j]['time'] >= data.iloc[i]['time'] 
+            and data.iloc[j]['time'] <= data.iloc[i]['end_time'])
+            or (data.iloc[j]['end_time'] >= data.iloc[i]['time'] and
+            data.iloc[j]['end_time'] <= data.iloc[i]['end_time'])) and
+           i != j):
+                overlapMatchups.append(j)
+    overlapMatchupsList.append(overlapMatchups)
+
 
 # Get the element id of the one we want to choose
 # right now the criteria is the soonest 90%+ pick that is not cold or none
