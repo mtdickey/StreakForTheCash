@@ -38,7 +38,7 @@ ggplot(data = dat, aes(x=sport, y = winPct)) +
 # all seem to hover around .500 pretty well
 
 # Look into relationship between confidence and win %
-img <- readPNG("SFTC.png")
+img <- readPNG("Images + Plots/SFTC.png")
 g <- rasterGrob(img, interpolate=TRUE)
 Picks$pctGroup <- as.numeric(cut_number(Picks$perc, 20))
 Picks$pctGroup <- rescale(Picks$pctGroup, to = c(50, 100))
