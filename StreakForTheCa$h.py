@@ -85,6 +85,16 @@ for i in range(0,len(data['time'])-1):
            i != j):
                 overlapMatchups.append(j)
     overlapMatchupsList.append(overlapMatchups)
+data['overlapping'] = overlapMatchupsList
+
+# Merge in win probabilities (these are going to come from StreakEdge).. but for now using perc
+
+
+# Calculate expected wins of all possible remaining paths
+possibleMatchups = data.loc[~data['selectionID'].isin(['unselectable'])]
+possiblePaths = []
+# if we were to do the power set (all possible subsets) of something around 20 matchups, it would be over 600,000 possible paths
+# Method proposed: start with 1st event of the day, compare with all overlapping... move on to second and compare, etc...
 
 
 # Get the element id of the one we want to choose
