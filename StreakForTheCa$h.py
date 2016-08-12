@@ -74,6 +74,7 @@ for length in data['Length']:
     end_times.append(data['time'] + (datetime.timedelta(minutes=length)))
 data['end_time'] = end_times
 
+# Return all future matchups for the each game that do not overlap
 nonoverlapMatchupsList = []
 nonoverlapMatchups = []
 for i in range(0,len(data['time'])-1):
