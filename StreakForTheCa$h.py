@@ -17,6 +17,8 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 from dateutil.parser import parse
 import datetime
+import networkx as nx
+import matplotlib.pyplot as plt
 
 ### open website and collect data to decide which pick to make ####
 response = urllib2.urlopen("http://streak.espn.go.com/")
@@ -72,33 +74,58 @@ for length in data['Length']:
     end_times.append(data['time'] + (datetime.timedelta(minutes=length)))
 data['end_time'] = end_times
 
-# Determine matchups that overlap in time (if you pick one, you can't pick the other)
-overlapMatchupsList = []
-overlapMatchups = []
+nonoverlapMatchupsList = []
+nonoverlapMatchups = []
 for i in range(0,len(data['time'])-1):
-    overlapMatchups = []
+    nonoverlapMatchups = []
     for j in range(0,len(data['time'])-1):
-        if ( ( (data.iloc[j]['time'] >= data.iloc[i]['time'] 
+        if ( not ( (data.iloc[j]['time'] >= data.iloc[i]['time'] 
             and data.iloc[j]['time'] <= data.iloc[i]['end_time'])
             or (data.iloc[j]['end_time'] >= data.iloc[i]['time'] and
-            data.iloc[j]['end_time'] <= data.iloc[i]['end_time'])) and
-           i != j):
-                overlapMatchups.append(j)
-    overlapMatchupsList.append(overlapMatchups)
-data['overlapping'] = overlapMatchupsList
+            data.iloc[j]['end_time'] <= data.iloc[i]['end_time'])) and j > i):
+                nonoverlapMatchups.append(j)
+    nonoverlapMatchupsList.append(nonoverlapMatchups)
 
 # Merge in win probabilities (these are going to come from StreakEdge).. but for now using perc
 
 
-# Calculate expected wins of all possible remaining paths
-possibleMatchups = data.loc[~data['selectionID'].isin(['unselectable'])]
-possiblePaths = []
-# if we were to do the power set (all possible subsets) of something around 20 matchups, it would be over 600,000 possible paths
-# Method proposed: start with 1st event of the day, compare with all overlapping... move on to second and compare, etc...
+DG = nx.DiGraph()
+for i in range(0, len(data['time'])-1):
+    if len(nonoverlapMatchupsList[i]) != 0:
+        for j in nonoverlapMatchupsList[i]:
+            DG.add_weighted_edges_from([(i, j, data.iloc[j]['perc'])])
 
+pos=nx.spring_layout(DG, k = 0.3, iterations = 20) 
+# positions for all nodes, k controls spacing (0-1, 1 is greater), iterations is the number of times simulated annealing is run
 
+# nodes
+nx.draw_networkx_nodes(DG,pos,node_size=300)
+
+elarge=[(u,v) for (u,v,d) in DG.edges(data=True) if d['weight'] > 90]
+emed = [(u,v) for (u,v,d) in DG.edges(data=True) if (d['weight'] < 90 and d['weight'] > 65)]
+esmall=[(u,v) for (u,v,d) in DG.edges(data=True) if d['weight'] <= 65]
+
+# edges
+nx.draw_networkx_edges(DG,pos,edgelist=elarge,
+                    width=4)
+
+nx.draw_networkx_edges(DG,pos,edgelist=emed,
+                    width=2, alpha = 0.5, edge_color = 'g')        
+        
+nx.draw_networkx_edges(DG,pos,edgelist=esmall,
+                    width=1,alpha=0.5,edge_color='b')
+
+# labels
+nx.draw_networkx_labels(DG,pos,font_size=9,font_family='sans-serif')
+plt.axis('off')
+plt.savefig("DirectedGraph.png") # save as png.
+plt.show() # display
+
+# This is a bit crowded, may need to get rid of some unnecessary edges?
+
+	
 # Get the element id of the one we want to choose
-# right now the criteria is the soonest 90%+ pick that is not cold or none
+# right now the criteria is the soonest 80%+ pick that is not cold or none
 pick = data.loc[ (~data['selectionID'].isin(["unselectable"])) & (data['perc'] > 80) & (~data['temp'].isin(['None']))]
 #,'Cold']))]
 pick = pick.ix[min(pick.index),'selectionID']
