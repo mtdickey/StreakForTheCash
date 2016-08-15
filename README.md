@@ -24,7 +24,7 @@ __Rules__:
 - - - -
 __Objectives of the project:__
 
-1. __Identify a winning strategy:__ Develop two programs with objectives matching the two ways to way, listed above
+1. __Identify a winning strategy:__ Develop two programs with objectives matching the two ways to win, listed above
 2. __Utilize the best information available__, including:
   1. Other SFTC analytics sites (Ex. [Streak Edge](https://www.streakege.com))
   2. Live monitoring of ongoing picks
