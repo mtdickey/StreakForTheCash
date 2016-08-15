@@ -19,6 +19,7 @@ from dateutil.parser import parse
 import datetime
 import networkx as nx
 import matplotlib.pyplot as plt
+import matplotlib.lines as mlines
 
 ### open website and collect data to decide which pick to make ####
 response = urllib2.urlopen("http://streak.espn.go.com/")
@@ -71,7 +72,7 @@ data = pd.merge(data,duration, how='left', left_on = ['sport', 'period'], right_
 data.set_value(data['Length'].isnull() ,'Length', 120) # for all NaN's that didn't merge in, give it a default of 2 hours
 end_times = []
 for length in data['Length']:
-    end_times.append(data['time'] + (datetime.timedelta(minutes=length)))
+    end_times.append(data['time'] + (datetime.timedelta(minutes=int(length))))
 data['end_time'] = end_times
 
 # Return all future matchups for the each game that do not overlap
@@ -118,12 +119,32 @@ nx.draw_networkx_edges(DG,pos,edgelist=esmall,
 
 # labels
 nx.draw_networkx_labels(DG,pos,font_size=9,font_family='sans-serif')
+black_line = mlines.Line2D([],[], color = 'black', linewidth=3, label = 'Greater than 90%')
+green_line = mlines.Line2D([],[], color = 'green', linewidth=2, label = '65% < x < 90%')
+blue_line = mlines.Line2D([], [], color='blue', linewidth=1, label='Less than 65%')
+plt.legend(handles=[black_line, green_line, blue_line], loc = 'lower right')
 plt.axis('off')
 plt.savefig("DirectedGraph.png") # save as png.
 plt.show() # display
-
 # This is a bit crowded, may need to get rid of some unnecessary edges?
 
+# Find the heaviest path!
+def get_weight(path):
+    sum = 0
+    for i in range(0, len(path)-2):
+        sum += DG[path[i]][path[i+1]]['weight']
+    return(sum)
+heaviest_paths = []
+for i in range(0, len(test)-1):
+    for j in range(0, len(test)-1):
+        if i < j and nx.has_path(DG, i, j):
+                heaviest_paths.append(max((path for path in nx.all_simple_paths(DG, i, j)),
+                        key=lambda path: get_weight(path)))
+heaviest_path = max((path for path in heaviest_paths),
+                    key=lambda path: get_weight(path))
+for path in heaviest_paths:
+    print(str(path) + ' weighs: ' + str(get_weight(path)))
+print(str(heaviest_path) + " is the heaviest")
 	
 # Get the element id of the one we want to choose
 # right now the criteria is the soonest 80%+ pick that is not cold or none
