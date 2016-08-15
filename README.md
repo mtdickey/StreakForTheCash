@@ -9,7 +9,7 @@ __About SFTC__:
 In this free competition, users may win cash prizes up to $25,000 by either:
 
 1. Having the longest streak of correct picks out of all players for the month
-2. Accumulating the maxmimum number of correct picks for the month
+2. Accumulating the maximum number of correct picks for the month
 
 There are a variety of matchups that players may choose from, spanning all common sports:
 * Picking the winning team/player (this is the most common pick)
