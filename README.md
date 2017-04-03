@@ -26,15 +26,16 @@ __Objectives of the project:__
 
 1. __Identify a winning strategy:__ Develop two programs with objectives matching the two ways to win, listed above
 2. __Utilize the best information available__, including:
-  1. Other SFTC analytics sites (Ex. [Streak Edge](https://www.streakege.com))
-  2. Live monitoring of ongoing picks
-  3. Betting lines/Sports analytics sites publishing predictions (Ex. [538](http://fivethirtyeight.com/sports/))
-  4. *Stretch*: Internal modeling/simulations
-3. __Identify patterns of favorable matchups__
+   + Other SFTC analytics sites (Ex. [Streak Edge](https://www.streakege.com))
+   + Betting lines/Sports analytics sites publishing predictions (Ex. [538](http://fivethirtyeight.com/sports/))
+   + *Stretches*: 
+      + Internal modeling/simulations
+      + Live monitoring of ongoing picks
+3. __Find patterns that make a matchup favorable__
 
 __Challenges:__
 
-1. __Text analytics:__ Translating the matchup text posed into the period of time that the matchup will be active
+1. __Text analytics:__ Translating the matchup description into the length of time that the matchup will be active (ex. a soccer game lasts about 110 minutes)
 2. __Optimization:__ Maximize expected wins given estimates of win probabilities and the number of picks possible
 3. __Classification:__ Separating the winners from the losers
-4. __Real Time:__ Monitoring on-going matchups to get a better estimate of live win probabilties
+4. *Stretch:* __real-time__ monitoring of on-going matchups to get a better estimate of live win probabilties
